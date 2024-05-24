@@ -1,0 +1,43 @@
+#마스터 노드 drain
+kubectl drain controlplane --ignore-deamonsets
+
+#마스터 노드의 kubeadm 업그레이드
+kubeadm version 
+
+#apt 업그레이드 수행
+apt update
+
+#업그레이드 가능한 kubeadm 버전 확인
+apt-cache madison kubeadm
+
+kubeadm |  1.19.1-00 | http://apt.kubernetes.io kubernetes-xenial/main amd64 Packages
+
+#kubeadm 업그레이드
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.19.0-00 && \
+apt-mark hold kubeadm
+
+#업그레이드 된 kubeadm 버전 확인
+kubeadm version
+kubeadm upgrade plan
+
+#업그레이드 진행 
+kubeadm upgrade apply v1.19.0
+
+#Kubelet, kubectl 업데이트
+apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.19.0-00 kubectl=1.19.0-00 && \
+apt-mark hold kubelet kubectl
+
+#kubelet 재시작
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+#kubelet 버전 확인
+kubelet --version
+
+#kubectl 버전 확인
+kubectl --version
+
+#마스터 노드 uncordon
+kubectl uncordon controlplane
