@@ -1,0 +1,46 @@
+#  apply pod labeling in namespace 
+$ kubectl label pods mypod role=app
+
+# apply network policy labeling in namespace 
+$ kubectl label namespace myns node=accept
+$ cat networkpolicy.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: test-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: app  #<- target pod labeling changed
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          node: accept  #<- target node labeling is changed 
+    ports:
+    - protocol: TCP
+      port: 80
+
+$ kubectl apply -f networkpolicy.yaml
+
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: all-port-from-namespace        #This line is changed
+  namespace: echo        #This line should be changed
+spec:
+  podSelector:
+    matchLabels: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: internal        #This line is changed
+    - podSelector: {}
+    ports:
+    - port: 9000        #This line is changed
