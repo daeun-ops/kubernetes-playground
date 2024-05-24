@@ -1,0 +1,5 @@
+#Terminal
+kubectl logs foobar |grep unable-to-access-website > /opt/KUTR00101/foobar
+cat /opt/KUTR00101/foobar
+
+kubectl logs loadbalancer |grep Error |grep unable-to-access-website > /opt/KUTR00101/loadbalancer
