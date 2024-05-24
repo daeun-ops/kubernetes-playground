@@ -1,0 +1,32 @@
+#create persistent volume claim  
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-volume                         # this line should be edit
+spec:
+  accessModes:
+    - ReadWriteOnce                       # this line should be edit
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Mi                       # this line should be edit
+  storageClassName: csi-hostpath-sc       # this line should be add
+
+
+  # pvc, pod volume mount you should create a pod to use PVC as shown below:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/usr/share/nginx/html"
+        name: pv-volume
+  volumes:
+    - name: pv-volume
+      persistentVolumeClaim:
+        claimName: pv-volume
+# Finally, you can edit pv-volume PVC with the "kubectl edit pvc pv-volume –save-config" command, after that you can change capacity from "10 Mi" to "70 Mi".you can test the change with the "kubectl get pvc" command.
