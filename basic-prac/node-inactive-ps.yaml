@@ -1,0 +1,15 @@
+#node2가 NotReady 로 조회됨
+kubectl get node
+
+#node2로 접속
+ssh node2
+
+#kubelet 상태 조회 <- stop 상태로 조회됨
+systemctl status kubelet
+
+#kubelet 재시작 
+systemctl restart kubelet
+exit
+
+#일정 시간 이후 정상 상태 확인
+kubectl get node
