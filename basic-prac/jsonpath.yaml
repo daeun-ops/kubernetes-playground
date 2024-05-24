@@ -1,0 +1,12 @@
+### 각 노드의 이름과 노드의 CPU 수 출력
+kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.capacity.cpu}{"\n"}{end}'
+
+###서비스 이름과 해당 서비스의 노출된 포트 출력
+ kubectl get services -o=jsonpath='{range .items[*]}{"Service Name: "}{.metadata.name}{"\t"}{"Ports: "}{range .spec.ports[*]}{.port}{" "}{end}{"\n"}{end}'
+
+###서비스 이름과 해당 서비스의 클러스터 IP 출력
+kubectl get services -o=jsonpath='{range .items[*]}{"Service Name: "}{.metadata.name}{"\t"}{"Cluster IP: "}{.spec.clusterIP}{"\n"}{end}'
+
+
+###모든 네임스페이스의 이름과 해당 네임스페이스의 상태 출력
+kubectl get namespaces -o=jsonpath='{range .items[*]}{"Namespace Name: "}{.metadata.name}{"\t"}{"Phase: "}{.status.phase}{"\n"}{end}'
