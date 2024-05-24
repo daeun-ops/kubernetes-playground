@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-config                # edit this line
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Gi                  # edit this line
+  accessModes:
+    - ReadWriteOnce               # edit this line
+  hostPath:
+    path: "/srv/app-config"       # edit this line
+
+ kubectl create -f pv-volume.yaml
