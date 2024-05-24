@@ -1,0 +1,1 @@
+ kubectl drain ek8s-node-1 --delete-local-data --ignore-daemonsets --force
