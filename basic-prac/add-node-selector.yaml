@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-kusc00401                # this line should be change
+  labels:
+    role: nginx-kusc00401              # this line should be change
+spec:
+  nodeSelector:
+    disk: spinning                     # this line should be change
+  containers:
+    - name: nginx                      # this line should be change
+      image: nginx                     # this line should be change
