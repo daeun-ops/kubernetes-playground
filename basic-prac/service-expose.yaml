@@ -1,0 +1,1 @@
+ kubectl expose deployment front-end --name=front-end-svc --port=80 --target-port=80 --type=NodePort
