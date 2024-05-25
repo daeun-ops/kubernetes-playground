@@ -9,4 +9,4 @@ spec:
     disk: spinning                     # this line should be change
   containers:
     - name: nginx                      # this line should be change
-      image: nginx                     # this line should be change
+      image: nginx                   # this line should be change
