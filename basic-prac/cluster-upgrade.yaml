@@ -1,10 +1,10 @@
-#마스터 노드 drain
+# drain master node
 kubectl drain controlplane --ignore-deamonsets
 
-#마스터 노드의 kubeadm 업그레이드
+# master node kubeadm upgrade
 kubeadm version 
 
-#apt 업그레이드 수행
+#upgrade apt
 apt update
 
 #업그레이드 가능한 kubeadm 버전 확인
