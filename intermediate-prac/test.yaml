@@ -1,1 +1,6 @@
+Podman basics
+Create a Dockerfile to deploy an Apache HTTP Server which hosts a custom main page
+show
 
+FROM docker.io/httpd:2.4
+RUN echo "Hello, World!" > /usr/local/apache2/htdocs/index.html
