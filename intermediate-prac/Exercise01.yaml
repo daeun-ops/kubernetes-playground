@@ -13,6 +13,7 @@ namespace/kdpd00201 created
 
 kubectl create deploy frontend --image=lfccncf/nginx:1.13.7 --port=8080 --namespace=kdpd00201 --replicas=4  --dry-run=client -o yaml
 Step 2
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
