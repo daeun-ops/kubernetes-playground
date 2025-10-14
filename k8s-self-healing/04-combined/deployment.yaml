@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: combined-probe-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: combined-probe-demo
+  template:
+    metadata:
+      labels:
+        app: combined-probe-demo
+    spec:
+      containers:
+        - name: app
+          image: busybox
+          args:
+            - /bin/sh
+            - -c
+            - |
+              echo "🟡 Starting app with staged readiness...";
+              sleep 10;
+              touch /tmp/healthy;
+              touch /tmp/ready;
+              echo "🟢 All probes ready";
+              while true; do
+                echo "✅ Running";
+                sleep 3;
+              done
+          startupProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/healthy
+            failureThreshold: 5
+            periodSeconds: 3
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/healthy
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/ready
+            initialDelaySeconds: 10
+            periodSeconds: 3
