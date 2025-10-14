@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: startup-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: startup-demo
+  template:
+    metadata:
+      labels:
+        app: startup-demo
+    spec:
+      containers:
+        - name: app
+          image: busybox
+          args:
+            - /bin/sh
+            - -c
+            - |
+              echo "🟡 Simulating slow startup (20s delay)...";
+              sleep 20;
+              echo "🟢 App started";
+              touch /tmp/healthy;
+              while true; do
+                echo "✅ Running fine";
+                sleep 3;
+              done
+          startupProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/healthy
+            failureThreshold: 10
+            periodSeconds: 3
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/healthy
+            initialDelaySeconds: 25
+            periodSeconds: 5
