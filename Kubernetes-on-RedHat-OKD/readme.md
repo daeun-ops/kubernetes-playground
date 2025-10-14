@@ -1,10 +1,10 @@
-# 🚀 OKD Cloud-Native Advanced Labs (Kubernetes on Red Hat OKD)
+# OKD Cloud-Native Advanced Labs (Kubernetes on Red Hat OKD)
 
 > Opinionated, production-leaning labs that showcase senior-level Kubernetes/OKD skills:
 > multi-tenancy hardening, weighted blue/green via Routes, GitOps with Argo CD, Tekton CI,
 > and event-driven autoscaling with KEDA — all in OKD 4.x.
 
-## 🔧 Prerequisites
+## Prerequisites
 - OKD 4.x cluster (cluster-admin or project-admin where required)
 - `oc` CLI logged in (`oc whoami` OK)
 - Optional:
@@ -13,7 +13,7 @@
   - KEDA Operator installed
   - User Workload Monitoring enabled (for ServiceMonitor)
 
-## 🗂️ Labs
+##  Labs
 | # | Lab | What you’ll prove |
 |---|-----|--------------------|
 | 01 | **Secure Tenant** | Multi-tenancy hardening (Namespace policy set: NetworkPolicy default deny, SCC binding, ResourceQuota, LimitRange, PDB, topologySpreadConstraints) |
@@ -24,7 +24,7 @@
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
 ```bash
 # 01 Secure Tenant
