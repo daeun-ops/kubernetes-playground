@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: rq-team-a
+  namespace: team-a
+spec:
+  hard:
+    pods: "20"
+    requests.cpu: "4"
+    requests.memory: "8Gi"
+    limits.cpu: "8"
+    limits.memory: "16Gi"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: lr-team-a
+  namespace: team-a
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: "500m"
+        memory: "512Mi"
+      defaultRequest:
+        cpu: "200m"
+        memory: "256Mi"
