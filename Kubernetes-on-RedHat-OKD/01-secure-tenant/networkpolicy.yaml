@@ -1,0 +1,29 @@
+# Default deny all, then allow only from same namespace to app port 8080
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: team-a
+spec:
+  podSelector: {}
+  policyTypes: ["Ingress","Egress"]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-ns-to-app
+  namespace: team-a
+spec:
+  podSelector:
+    matchLabels:
+      app: app
+  ingress:
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    - to:
+        - namespaceSelector: {}
+  policyTypes: ["Ingress","Egress"]
