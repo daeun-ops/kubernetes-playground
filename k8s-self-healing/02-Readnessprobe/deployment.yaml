@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readiness-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readiness-demo
+  template:
+    metadata:
+      labels:
+        app: readiness-demo
+    spec:
+      containers:
+        - name: app
+          image: busybox
+          args:
+            - /bin/sh
+            - -c
+            - |
+              touch /tmp/ready;
+              echo "🟢 Readiness demo started";
+              while true; do
+                if [ -f /tmp/ready ]; then
+                  echo "✅ Ready";
+                else
+                  echo "🕐 Not Ready";
+                fi;
+                sleep 3;
+              done
+          readinessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/ready
+            initialDelaySeconds: 3
+            periodSeconds: 3
