@@ -1,4 +1,4 @@
----
+
 
 ###  `03-gitops-argocd/README.md`
 ```markdown
