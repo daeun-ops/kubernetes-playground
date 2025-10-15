@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: worker-sm
+  namespace: team-a
+spec:
+  selector:
+    matchLabels:
+      app: worker
+  namespaceSelector:
+    matchNames: ["team-a"]
+  endpoints:
+    - port: http
+      interval: 15s
