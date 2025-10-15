@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pipeline
+  namespace: team-a
+imagePullSecrets:
+  - name: default-dockercfg-xxxxx   # cluster가 자동 생성한 pull secret 참조(이름은 클러스터마다 다름)
