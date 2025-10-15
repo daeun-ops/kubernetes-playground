@@ -1,0 +1,18 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker-scale
+  namespace: team-a
+spec:
+  scaleTargetRef:
+    name: worker
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+        metricName: custom_queue_depth
+        threshold: "100"
+        query: |
+          max(custom_queue_depth{namespace="team-a"})
