@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-and-push
+  namespace: team-a
+spec:
+  params:
+    - name: IMAGE
+      type: string
+  steps:
+    - name: build
+      image: quay.io/buildah/stable:v1.36
+      securityContext:
+        privileged: true
+      script: |
+        buildah bud -t $(params.IMAGE) .
+        buildah push $(params.IMAGE)
