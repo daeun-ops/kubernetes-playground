@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: team-a-app
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: team-a
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/your-org/okd-cloud-native-labs.git
+    targetRevision: main
+    path: 01-secure-tenant
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
