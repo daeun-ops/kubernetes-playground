@@ -1,5 +1,3 @@
----
-
 ###  `02-bluegreen-route/README.md`
 ```markdown
 # Lab 02 — Blue/Green Deployment with Route Weights
