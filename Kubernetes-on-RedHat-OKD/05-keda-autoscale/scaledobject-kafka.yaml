@@ -1,0 +1,17 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker-kafka-scale
+  namespace: team-a
+spec:
+  scaleTargetRef:
+    name: worker
+  minReplicaCount: 1
+  maxReplicaCount: 20
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
+        consumerGroup: worker-group
+        topic: jobs
+        lagThreshold: "500"
