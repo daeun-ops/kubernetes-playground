@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: team-a
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: worker } }
+  template:
+    metadata:
+      labels: { app: worker }
+    spec:
+      containers:
+        - name: worker
+          image: quay.io/prometheus/busybox:latest
+          args: ["sh","-c","while true; do echo processing; sleep 2; done"]
