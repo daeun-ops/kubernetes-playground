@@ -45,3 +45,34 @@ oc create -f 04-tekton-ci/pipelinerun.yaml
 # 05 KEDA Autoscaling
 oc apply -f 05-keda-autoscale/
 
+
+
+okd-cloud-native-labs/
+├── README.md
+├── 01-secure-tenant/
+│   ├── namespace.yaml
+│   ├── sa-scc-binding.yaml
+│   ├── networkpolicy.yaml
+│   ├── quota-limits.yaml
+│   └── app-deployment.yaml
+├── 02-bluegreen-route/
+│   ├── deployments.yaml
+│   └── route.yaml
+├── 03-gitops-argocd/
+│   ├── argocd-namespace.yaml
+│   └── application.yaml
+├── 04-tekton-ci/
+│   ├── sa.yaml
+│   ├── task-buildah.yaml
+│   ├── pipeline.yaml
+│   └── pipelinerun.yaml
+└── 05-keda-autoscale/
+    ├── deployment.yaml
+    ├── scaledobject-prom.yaml
+    ├── scaledobject-kafka.yaml
+    └── servicemonitor.yaml
+
+
+
+
+
