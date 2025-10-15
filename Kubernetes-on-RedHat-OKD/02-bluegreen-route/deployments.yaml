@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-blue
+  namespace: team-a
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: web, version: blue } }
+  template:
+    metadata:
+      labels: { app: web, version: blue }
+    spec:
+      containers:
+        - name: web
+          image: quay.io/openshift/origin-kube-rbac-proxy:latest
+          args: ["--logtostderr=true","--secure-listen-address=0.0.0.0:9000"]
+          ports: [{ containerPort: 9000 }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-blue
+  namespace: team-a
+spec:
+  selector: { app: web, version: blue }
+  ports:
+    - port: 80
+      targetPort: 9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-green
+  namespace: team-a
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: web, version: green } }
+  template:
+    metadata:
+      labels: { app: web, version: green }
+    spec:
+      containers:
+        - name: web
+          image: quay.io/openshift/origin-kube-rbac-proxy:latest
+          args: ["--logtostderr=true","--secure-listen-address=0.0.0.0:9000"]
+          ports: [{ containerPort: 9000 }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-green
+  namespace: team-a
+spec:
+  selector: { app: web, version: green }
+  ports:
+    - port: 80
+      targetPort: 9000
