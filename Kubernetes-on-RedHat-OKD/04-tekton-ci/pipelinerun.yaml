@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: ci-pipeline-run
+  namespace: team-a
+spec:
+  pipelineRef:
+    name: ci-pipeline
+  params:
+    - name: IMAGE
+      value: image-registry.openshift-image-registry.svc:5000/team-a/app:latest
+  serviceAccountName: pipeline
